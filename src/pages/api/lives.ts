@@ -7,14 +7,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // 获取总数
         const total = await db('lives')
-            .where('flag', '<>', 1)
             .count('* as count')
             .first();
 
         // 获取分页数据
         const list = await db('lives')
             .select('*')
-            .where('flag', '<>', 1)
             .orderBy('created_at', 'desc')
             .limit(Number(pageSize))
             .offset((Number(page) - 1) * Number(pageSize));

@@ -27,9 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         // 删除数据库记录
-        await db('lives').where({ id }).update({
-            flag: 1
-        });
+        await db('lives').where({ id }).delete();
 
         return res.status(200).json({
             success: true,

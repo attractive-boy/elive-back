@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-        const { video_url, title, start_date } = req.body;
+        const { video_url, title, start_date, duration } = req.body;
         if (!video_url || !title || !start_date) {
             return res.status(400).json({
                 success: false,
@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 title,
                 video_url,
                 start_date,
+                duration,
                 created_at: new Date()
             });
 
