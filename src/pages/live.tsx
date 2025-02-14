@@ -93,6 +93,7 @@ const DynamicLivePage = () => {
         setFileList([]);
         setIsModalOpen(false);
         ref.current?.reload();
+        setUpLoadings(false);
       };
 
       video.src = videoUrl;
@@ -100,7 +101,7 @@ const DynamicLivePage = () => {
     } catch (error) {
       message.error('添加失败，请重试');
     }
-    setUpLoadings(false);
+
   };
 
   // 编辑直播：打开编辑模态框并预填数据
@@ -217,16 +218,13 @@ const DynamicLivePage = () => {
           key="delete"
           type="link"
           danger
-          onClick={() => {
-            Modal.confirm({
-              title: '确认删除',
-              content: '确定要删除这个直播吗？',
-              onOk: async () => {
+          onClick={async () => {
+
                 await post('/api/deleteLive', { id: record.id });
                 message.success('删除成功');
                 ref.current?.reload();
-              },
-            });
+
+
           }}
         >
           删除
@@ -266,16 +264,12 @@ const DynamicLivePage = () => {
           key="delete"
           type="link"
           danger
-          onClick={() => {
-            Modal.confirm({
-              title: '确认删除',
-              content: '确定要删除这个授权码吗？',
-              onOk: async () => {
+          onClick={async () => {
+
                 await post('/api/deleteAuthcode', { id: record.id });
                 message.success('删除成功');
                 authcodeRef.current?.reload();
-              },
-            });
+
           }}
         >
           删除
